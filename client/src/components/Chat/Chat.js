@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import io from 'socket.io-client'
 import ChatHeader from '../ChatHeader/ChatHeader';
 import './chat.css'
+import I_chatMessage from '../Inputs/I_chatMessage';
+import MessageBox from '../MessageBox/MessageBox';
 
 let socket;
 
@@ -53,18 +55,10 @@ const Chat = () => {
         <div className="chat bg-primary vh-100 d-flex justify-content-center align-items-center"> 
             <div className="card p-0 container h-75">
                 <ChatHeader room={room}/>
-                <div className="card-body">
-                    
+                <div className="card-body bg-secondary m-2">
+                    <MessageBox messages={messages} name={name} />
                 </div>
-                <div className="inputs-container d-flex justify-content-center mb-2">
-                    <input className="form-control ml-2 h-100 inputChat overflow-hidden"
-                        type="text" placeholder="" name="ChatMessage"
-                        value={chat}
-                        onChange={(event) => setChat(event.target.value)}
-                        onKeyPress={event => event.key === 'Enter' ? sendChat(event) : null}
-                     />
-                    <button className="btn btn-info messageBtn mr-2" onClick={(event) => chat !== '' ? sendChat(event) : null} >Send</button> 
-                </div>
+                <I_chatMessage chat={chat} setChat={setChat} sendChat={sendChat} />
             </div>
         </div>
     )
